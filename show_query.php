@@ -23,6 +23,9 @@ $join_select_arr = $_POST["join_select"] ?? null;
 $join_type = $_POST["join_type"] ?? null;
 $sort_type = $_POST["sort"] ?? null;
 $asc = $_POST["asc"] ?? null;
+$group_type = $_POST["group"] ?? null;
+$limit = $_POST["limit"] ?? null;
+$offset = $_POST["offset"] ?? null;
 
 //var_dump($join_select_arr);
 
@@ -154,7 +157,7 @@ $sql = "";
           break;
       case ["item", "storage_place"]:
       case ["storage_place", "item"]:
-          $id = "act_number";
+          $id = "cell_number";
           break;
       case ["item", "fpc_visit"]:
       case ["fpc_visit", "item"] :
@@ -164,15 +167,33 @@ $sql = "";
 //var_dump($join_from, $from,$id);
   if ($join_select_arr == NULL) {
       $sql = "SELECT $final_select FROM $from";
+//      if ($group_type != ""){
+//          $sql .= " GROUP BY $final_select_arr[$group_type] ";
+//      }
       if ($sort_type != ""){
           $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
+      }
+      if ($limit != ""){
+          $sql .= " LIMIT $limit";
+          if ($offset != ""){
+              $sql .= " OFFSET $offset";
+          }
       }
       }
   else {
       $sql = "SELECT $select1_finale FROM $from ";
       $sql .= "$join_type JOIN $join_from on $from.$id=$join_from.$id";
+//      if ($group_type != ""){
+//          $sql .= " GROUP BY $from.$final_select_arr[$group_type] ";
+//      }
       if ($sort_type != ""){
           $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
+      }
+      if ($limit != ""){
+          $sql .= " LIMIT $limit";
+          if ($offset != ""){
+              $sql .= " OFFSET $offset";
+          }
       }
   }
   var_dump($sql);

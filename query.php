@@ -100,7 +100,7 @@
             case "def":
                 res = def;
                 break;
-            case "act":
+            case "act_of_accepting_an_object":
                 res = act;
                 break;
             case "archive":
@@ -112,13 +112,13 @@
             case "fpc_visit":
                 res = fpc_visit;
                 break;
-            case "book":
+            case "inventory_book":
                 res = book;
                 break;
-            case "positions":
+            case "positons":
                 res = positions;
                 break;
-            case "storage":
+            case "storage_place":
                 res = storage;
                 break;
             case "item":
@@ -133,6 +133,7 @@
         }
         let dropSort = document.getElementById("sort");
         dropSort.innerHTML = doHTMLwithDef(selected);
+        document.getElementById("group").innerHTML = doHTMLwithDef(selected);
     }
 
     function getChosen1(from){
@@ -181,7 +182,20 @@
                     </select>
                 </div>
             </div>
-
+<!--            <label for="sort">Группировать по</label>-->
+<!--            <select class="form-select" id="group" name="group">-->
+<!--                <option value="" selected>умолчанию</option>-->
+<!--            </select>-->
+            <div class="row">
+                <div class="col-6">
+                    <label for="appearance">Сколько записей вывести?</label>
+                    <input type="number" min="1" step="1" class="form-control" id="limit" name="limit" placeholder="По умолчанию выведутся все">
+                </div>
+                <div class="col-6">
+                    <label for="appearance">Начиная с</label>
+                    <input type="number" min="1" step="1" class="form-control" id="offset" name="offset" placeholder="По умолчанию с 1">
+                </div>
+            </div>
         </div>
         <br>
 
