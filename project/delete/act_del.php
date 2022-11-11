@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
-$act_number = $_POST["act_number"];
-$employee_id = $_POST["employee_id"];
-$document_file = $_POST["document_file"];
+$act_number = $_POST["act_number"] ?? null;
+$employee_id = $_POST["employee_id"] ?? null;
+$document_file = $_POST["document_file"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -34,15 +34,15 @@ if ($document_file != '') {
 
 $sql = substr($sql, 0, -4);
 
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../act.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+    . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-
-header("Location: ../../act.php");
 exit;
 
 

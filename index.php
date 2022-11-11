@@ -19,7 +19,9 @@
           <h2>Предметы</h2>
           <?php include 'project/tables/items_tb.php';?>
       </div>
-
+      <?php
+      date_default_timezone_set('Europe/Moscow');
+      ?>
       <div class="container p-4">
           <h3>Добавить запись</h3>
           <form action="project/add/items_add.php" method="post">
@@ -31,7 +33,7 @@
                           <label for="origin">Происхождение</label>
                           <input type="text" class="form-control" id="origin" name="origin" placeholder="Введите происхождение">
                           <label for="date_of_admission">Дата поступления</label>
-                          <input type="datetime-local" max="" class="form-control" id="date_of_admission" name="date_of_admission" placeholder="Введите дату поступления">
+                          <input type="datetime-local" class="form-control" max="<?= date('Y-m-d H:i'); ?>" id="date_of_admission" name="date_of_admission" placeholder="Введите дату поступления">
                       </div>
                       <div class="col-6">
                           <label for="record_number">Номер записи в инвентарной книге</label>
@@ -103,7 +105,7 @@
                           <input type="text" class="form-control" id="origin" name="origin" placeholder="Введите происхождение">
 <!--                          TODO: add date of adm constraint-->
                           <label for="date_of_admission">Дата поступления</label>
-                          <input type="datetime-local" class="form-control" id="date_of_admission" name="date_of_admission" max="<?= date('YYYY-MM-DDTHH:ii'); ?>" placeholder="Введите дату поступления">
+                          <input type="datetime-local" class="form-control" id="date_of_admission" name="date_of_admission" placeholder="Введите дату поступления">
                       </div>
                       <div class="col-6">
                           <label for="record_number">Номер записи в инвентарной книге</label>
@@ -229,7 +231,7 @@
                           <label for="origin">Происхождение</label>
                           <input type="text" class="form-control" id="s_origin" name="s_origin" placeholder="Введите происхождение">
                           <label for="date_of_admission">Дата поступления</label>
-                          <input type="datetime-local" class="form-control" id="s_date_of_admission" name="s_date_of_admission" placeholder="Введите дату поступления">
+                          <input type="datetime-local" max="<?= date('Y-m-d H:i'); ?>" class="form-control" id="s_date_of_admission" name="s_date_of_admission" placeholder="Введите дату поступления">
                           <label for="record_number">Номер записи в инвентарной книге</label>
                           <select class="form-select" id="s_record_number" name="s_record_number">
                               <option value="NULL" selected disabled>Введите номер записи в инвентарной книге</option>
@@ -273,7 +275,7 @@
                               ?>
                           </select>
                           <label for="date_of_dismissal">Дата списания</label>
-                          <input type="datetime-local" class="form-control" id="s_date_of_dismissal" name="s_date_of_dismissal" placeholder="Введите дату списания">
+                          <input type="datetime-local" max="<?= date('Y-m-d H:i'); ?>" class="form-control" id="s_date_of_dismissal" name="s_date_of_dismissal" placeholder="Введите дату списания">
                       </div>
                   </div>
               </div>

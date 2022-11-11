@@ -1,7 +1,7 @@
 <?php
 
-$position_id = $_POST["position_id"];
-$duties = $_POST["duties"];
+$position_id = $_POST["position_id"] ?? null;
+$duties = $_POST["duties"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -13,7 +13,7 @@ $conn = mysqli_connect(hostname: $host,
     password: $password,
     database: $dbname);
 
-var_dump($position_id, $duties);
+//var_dump($position_id, $duties);
 if (mysqli_connect_errno()) {
     die("Connection error: " . mysqli_connect_error());
 }
@@ -36,13 +36,11 @@ else {
          WHERE position_id = $position_id and duties = '$duties'";
 }
 
-$stmt = mysqli_stmt_init($conn);
-
-if ( ! mysqli_stmt_prepare($stmt, $sql)) {
-    die(mysqli_error($conn));
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+    header("Location: ../../positions.php");
+} else {
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+        . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-var_dump($position_id, $duties);
-mysqli_stmt_execute($stmt);
-
-header("Location: ../../positions.php");
 exit;

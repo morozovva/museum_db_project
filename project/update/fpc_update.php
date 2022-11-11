@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$w_visit_number = $_POST["w_visit_number"];
-$w_fpc_decision = $_POST["w_fpc_decision"];
-$w_item_id = $_POST["w_item_id"];
+$w_visit_number = $_POST["w_visit_number"] ?? null;
+$w_fpc_decision = $_POST["w_fpc_decision"] ?? null;
+$w_item_id = $_POST["w_item_id"] ?? null;
 
-$s_visit_number = $_POST["s_visit_number"];
-$s_fpc_decision = $_POST["s_fpc_decision"];
-$s_item_id = $_POST["s_item_id"];
+$s_visit_number = $_POST["s_visit_number"] ?? null;
+$s_fpc_decision = $_POST["s_fpc_decision"] ?? null;
+$s_item_id = $_POST["s_item_id"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -47,15 +47,13 @@ if ($w_item_id != '') {
 }
 
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../fpc.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../fpc.php");
 exit;
-
-

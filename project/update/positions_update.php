@@ -1,11 +1,11 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$w_position_id = $_POST["w_position_id"];
-$w_duties = $_POST["w_duties"];
+$w_position_id = $_POST["w_position_id"] ?? null;
+$w_duties = $_POST["w_duties"] ?? null;
 
-$s_position_id = $_POST["s_position_id"];
-$s_duties = $_POST["s_duties"];
+$s_position_id = $_POST["s_position_id"]?? null;
+$s_duties = $_POST["s_duties"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -40,13 +40,13 @@ if ($w_duties != '') {
 }
 
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../positions.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../positions.php");
 exit;

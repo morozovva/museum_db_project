@@ -1,27 +1,27 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$s_employee_id = $_POST["s_employee_id"];
-$s_position_id = $_POST["s_position_id"];
-$s_surname = $_POST["s_surname"];
-$s_name = $_POST["s_name"];
-$s_patronymic = $_POST["s_patronymic"];
-$s_phone_number = $_POST["s_phone_number"];
-$s_date_of_birth = $_POST["s_date_of_birth"];
-$s_date_of_employment = $_POST["s_date_of_employment"];
-$s_date_of_dismissal = $_POST["s_date_of_dismissal"];
-$s_status = $_POST["s_status"];
+$s_employee_id = $_POST["s_employee_id"] ?? null;
+$s_position_id = $_POST["s_position_id"] ?? null;
+$s_surname = $_POST["s_surname"] ?? null;
+$s_name = $_POST["s_name"] ?? null;
+$s_patronymic = $_POST["s_patronymic"] ?? null;
+$s_phone_number = $_POST["s_phone_number"] ?? null;
+$s_date_of_birth = $_POST["s_date_of_birth"] ?? null;
+$s_date_of_employment = $_POST["s_date_of_employment"] ?? null;
+$s_date_of_dismissal = $_POST["s_date_of_dismissal"] ?? null;
+$s_status = $_POST["s_status"] ?? null;
 
-$w_employee_id = $_POST["w_employee_id"];
-$w_position_id = $_POST["w_position_id"];
-$w_surname = $_POST["w_surname"];
-$w_name = $_POST["w_name"];
-$w_patronymic = $_POST["w_patronymic"];
-$w_phone_number = $_POST["w_phone_number"];
-$w_date_of_birth = $_POST["w_date_of_birth"];
-$w_date_of_employment = $_POST["w_date_of_employment"];
-$w_date_of_dismissal = $_POST["w_date_of_dismissal"];
-$w_status = $_POST["w_status"];
+$w_employee_id = $_POST["w_employee_id"] ?? null;
+$w_position_id = $_POST["w_position_id"] ?? null;
+$w_surname = $_POST["w_surname"] ?? null;
+$w_name = $_POST["w_name"] ?? null;
+$w_patronymic = $_POST["w_patronymic"] ?? null;
+$w_phone_number = $_POST["w_phone_number"] ?? null;
+$w_date_of_birth = $_POST["w_date_of_birth"] ?? null;
+$w_date_of_employment = $_POST["w_date_of_employment"] ?? null;
+$w_date_of_dismissal = $_POST["w_date_of_dismissal"] ?? null;
+$w_status = $_POST["w_status"] ?? null;
 
 
 $host = "localhost";
@@ -103,10 +103,11 @@ if ($w_status != '') {
     $sql .= " status = '$w_status' and";
 }
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../employee.php");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }

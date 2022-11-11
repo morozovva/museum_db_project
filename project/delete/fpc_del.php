@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
-$visit_number = $_POST["visit_number"];
-$fpc_decision = $_POST["fpc_decision"];
-$item_id = $_POST["item_id"];
+$visit_number = $_POST["visit_number"] ?? null;
+$fpc_decision = $_POST["fpc_decision"] ?? null;
+$item_id = $_POST["item_id"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -34,17 +34,13 @@ if ($item_id != '') {
 
 $sql = substr($sql, 0, -4);
 
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../fpc.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+        . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-
-header("Location: ../../fpc.php");
 exit;
-
-
-
-

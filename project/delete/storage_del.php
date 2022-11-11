@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
-$cell_number = $_POST["cell_number"];
-$vacant = $_POST["vacant"];
-$sector = $_POST["sector"];
+$cell_number = $_POST["cell_number"] ?? null;
+$vacant = $_POST["vacant"] ?? null;
+$sector = $_POST["sector"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -34,15 +34,15 @@ if ($sector != '') {
 
 $sql = substr($sql, 0, -4);
 
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../storage.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+        . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-
-header("Location: ../../storage.php");
 exit;
 
 

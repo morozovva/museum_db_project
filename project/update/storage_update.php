@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$s_cell_number = $_POST["s_cell_number"];
-$s_vacant = $_POST["s_vacant"];
-$s_sector = $_POST["s_sector"];
+$s_cell_number = $_POST["s_cell_number"] ?? null;
+$s_vacant = $_POST["s_vacant"] ?? null;
+$s_sector = $_POST["s_sector"] ?? null;
 
-$w_cell_number = $_POST["w_cell_number"];
-$w_vacant = $_POST["w_vacant"];
-$w_sector = $_POST["w_sector"];
+$w_cell_number = $_POST["w_cell_number"] ?? null;
+$w_vacant = $_POST["w_vacant"] ?? null;
+$w_sector = $_POST["w_sector"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -48,13 +48,13 @@ if ($w_sector != '') {
 }
 
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../storage.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../storage.php");
 exit;

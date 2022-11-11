@@ -1,26 +1,26 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$s_item_id = $_POST["s_item_id"];
-$s_appearance = $_POST["s_appearance"];
-$s_origin = $_POST["s_origin"];
-$s_date_of_admission = $_POST["s_date_of_admission"];
+$s_item_id = $_POST["s_item_id"] ?? null;
+$s_appearance = $_POST["s_appearance"] ?? null;
+$s_origin = $_POST["s_origin"] ?? null;
+$s_date_of_admission = $_POST["s_date_of_admission"] ?? null;
 $s_date_of_admission = date('Y-m-d H:i:s', strtotime($s_date_of_admission));
-$s_cell_number = $_POST["s_cell_number"];
-$s_record_number = $_POST["s_record_number"];
-$s_act_number = $_POST["s_act_number"];
-$s_date_of_dismissal = $_POST["s_date_of_dismissal"];
+$s_cell_number = $_POST["s_cell_number"] ?? null;
+$s_record_number = $_POST["s_record_number"] ?? null;
+$s_act_number = $_POST["s_act_number"] ?? null;
+$s_date_of_dismissal = $_POST["s_date_of_dismissal"] ?? null;
 $s_date_of_dismissal = date('Y-m-d H:i:s', strtotime($s_date_of_dismissal));
 
-$w_item_id = $_POST["w_item_id"];
-$w_appearance = $_POST["w_appearance"];
-$w_origin = $_POST["w_origin"];
-$w_date_of_admission = $_POST["w_date_of_admission"];
+$w_item_id = $_POST["w_item_id"] ?? null;
+$w_appearance = $_POST["w_appearance"] ?? null;
+$w_origin = $_POST["w_origin"] ?? null;
+$w_date_of_admission = $_POST["w_date_of_admission"] ?? null;
 $w_date_of_admission = date('Y-m-d H:i:s', strtotime($w_date_of_admission));
-$w_cell_number = $_POST["w_cell_number"];
-$w_record_number = $_POST["w_record_number"];
-$w_act_number = $_POST["w_act_number"];
-$w_date_of_dismissal = $_POST["w_date_of_dismissal"];
+$w_cell_number = $_POST["w_cell_number"] ?? null;
+$w_record_number = $_POST["w_record_number"] ?? null;
+$w_act_number = $_POST["w_act_number"] ?? null;
+$w_date_of_dismissal = $_POST["w_date_of_dismissal"] ?? null;
 $w_date_of_dismissal = date('Y-m-d H:i:s', strtotime($w_date_of_dismissal));
 
 if ($s_date_of_admission == "1970-01-01 03:00:00") {
@@ -36,13 +36,13 @@ if ($w_date_of_dismissal == "1970-01-01 03:00:00") {
     $w_date_of_dismissal = "0";
 }
 
-if (strlen($s_date_of_admission) > strlen(date('y-m-d H:i:s', time()))) {
-//    die("error");
-    var_dump($s_date_of_admission, date('y-m-d H:i:s', time()));
-    var_dump(strlen($s_date_of_admission), strlen(date('y-m-d H:i:s', time())));
-//    header("Location: ../../index.php");
-    exit;
-}
+//if (strlen($s_date_of_admission) > strlen(date('y-m-d H:i:s', time()))) {
+////    die("error");
+//    var_dump($s_date_of_admission, date('y-m-d H:i:s', time()));
+//    var_dump(strlen($s_date_of_admission), strlen(date('y-m-d H:i:s', time())));
+////    header("Location: ../../index.php");
+//    exit;
+//}
 //if (strlen($s_date_of_dismissal) > strlen(date('y-m-d H:i:s', time()))) {
 ////    die("error");
 //    header("Location: ../../index.php");
@@ -116,13 +116,13 @@ if ($w_date_of_dismissal != '0') {
     $sql .= " date_of_dismissal = '$w_date_of_dismissal' and";
 }
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../index.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-//header("Location: ../../index.php");
 exit;

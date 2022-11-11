@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$w_act_number = $_POST["w_act_number"];
-$w_employee_id = $_POST["w_employee_id"];
-$w_document_file = $_POST["w_document_file"];
+$w_act_number = $_POST["w_act_number"] ?? null;
+$w_employee_id = $_POST["w_employee_id"] ?? null;
+$w_document_file = $_POST["w_document_file"] ?? null;
 
-$s_act_number = $_POST["s_act_number"];
-$s_employee_id = $_POST["s_employee_id"];
-$s_document_file = $_POST["s_document_file"];
+$s_act_number = $_POST["s_act_number"] ?? null;
+$s_employee_id = $_POST["s_employee_id"] ?? null;
+$s_document_file = $_POST["s_document_file"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -47,14 +47,14 @@ if ($w_document_file != '') {
 }
 
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../act.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../act.php");
 exit;
 

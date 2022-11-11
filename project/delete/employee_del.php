@@ -1,15 +1,15 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
-$employee_id = $_POST["employee_id"];
-$position_id = $_POST["position_id"];
-$surname = $_POST["surname"];
-$name = $_POST["name"];
-$patronymic = $_POST["patronymic"];
-$phone_number = $_POST["phone_number"];
-$date_of_birth = $_POST["date_of_birth"];
-$date_of_employment = $_POST["date_of_employment"];
-$date_of_dismissal = $_POST["date_of_dismissal"];
-$status = $_POST["status"];
+$employee_id = $_POST["employee_id"] ?? null;
+$position_id = $_POST["position_id"] ?? null;
+$surname = $_POST["surname"] ?? null;
+$name = $_POST["name"] ?? null;
+$patronymic = $_POST["patronymic"] ?? null;
+$phone_number = $_POST["phone_number"] ?? null;
+$date_of_birth = $_POST["date_of_birth"] ?? null;
+$date_of_employment = $_POST["date_of_employment"] ?? null;
+$date_of_dismissal = $_POST["date_of_dismissal"] ?? null;
+$status = $_POST["status"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -61,14 +61,13 @@ if ($status != '') {
 }
 $sql = substr($sql, 0, -4);
 
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../employee.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+        . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-
-header("Location: ../../employee.php");
 exit;
-

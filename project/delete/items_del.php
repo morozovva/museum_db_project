@@ -1,14 +1,14 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
-$item_id = $_POST["item_id"];
-$appearance = $_POST["appearance"];
-$origin = $_POST["origin"];
-$date_of_admission = $_POST["date_of_admission"];
+$item_id = $_POST["item_id"] ?? null;
+$appearance = $_POST["appearance"] ?? null;
+$origin = $_POST["origin"] ?? null;
+$date_of_admission = $_POST["date_of_admission"] ?? null;
 $date_of_admission = date('Y-m-d H:i:s', strtotime($date_of_admission));
-$cell_number = $_POST["cell_number"];
-$record_number = $_POST["record_number"];
-$act_number = $_POST["act_number"];
-$date_of_dismissal = $_POST["date_of_dismissal"];
+$cell_number = $_POST["cell_number"] ?? null;
+$record_number = $_POST["record_number"] ?? null;
+$act_number = $_POST["act_number"] ?? null;
+$date_of_dismissal = $_POST["date_of_dismissal"] ?? null;
 $date_of_dismissal = date('Y-m-d H:i:s', strtotime($date_of_dismissal));
 
 
@@ -60,9 +60,9 @@ $sql = substr($sql, 0, -4);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../index.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Ошибка: " . $sql . "<br>" . mysqli_error($conn)
+        . "<br><br> Эту запись нельзя удалить, пока она используется в других таблицах:(";
 }
-
-header("Location: ../../index.php");
 exit;

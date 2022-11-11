@@ -1,8 +1,8 @@
 <?php
-date_default_timezone_set('Europe/Moscow');
-$act_number = $_POST["act_number"];
-$employee_id = $_POST["employee_id"];
-$document_file = $_POST["document_file"];
+
+$act_number = $_POST["act_number"] ?? null;
+$employee_id = $_POST["employee_id"] ?? null;
+$document_file = $_POST["document_file"] ?? null;
 
 
 $host = "localhost";
@@ -38,16 +38,15 @@ if ($document_file != '') {
 
 $sql = substr($sql1, 0, -2) . ")" . substr($sql2, 0, -2) . ")";
 
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
-//    header("Location: ../../employee.php");
+    header("Location: ../../act.php");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../act.php");
 exit;
 
 

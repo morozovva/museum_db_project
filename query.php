@@ -24,12 +24,10 @@
     function doHTML(list){
         let string ="";
         let index = 0;
-        // string += '<option value="*">Все поля</option>';
         list.forEach(element => {
             string += `<option value="${index}">${element}</option>`;
             index+=1;
         });
-        // window.alert(string);
         return string;
     }
 
@@ -75,6 +73,80 @@
     }
 </script>
 
+<script>
+    function doHTMLwithDef(list){
+        let string ="<option value=''>умолчанию</option>";
+        let index = 0;
+        list.forEach(element => {
+            string += `<option value="${index}">${element}</option>`;
+            index+=1;
+        });
+        return string;
+    }
+
+    function getChosen(select, from) {
+        let def = [];
+        let act = ['Номер акта', 'Идентификатор сотрудника', 'Документ'];
+        let archive = ['Номер книги в архиве'];
+        let employee = ['Идентификатор', 'Идентификатор должности', "Фамилия", "Имя", "Отчество", "Номер телефона", "Дата рождения", "Дата принятия на работу", "Дата увольнения", "Статус"];
+        let fpc_visit = ['Номер визита', 'Решение ФЗК', "Идентификатор предмета"];
+        let book = ['Номер записи', "Номер книги"];
+        let item = ['Идентификатор предмета', 'Описание', 'Происхождение', 'Дата поступления','Номер записи в инвентарной книге','Номер акта приема','Номер ячейки на складе','Дата списания'];
+        let positions = ['Идентификатор', 'Должность'];
+        let storage = ['Номер ячейки на складе', 'Доступность', 'Сектор'];
+        var selected = []; var res = [];
+        let arr = getChosen1(from);
+        switch (arr) {
+            case "def":
+                res = def;
+                break;
+            case "act":
+                res = act;
+                break;
+            case "archive":
+                res = archive;
+                break;
+            case "employee":
+                res = employee;
+                break;
+            case "fpc_visit":
+                res = fpc_visit;
+                break;
+            case "book":
+                res = book;
+                break;
+            case "positions":
+                res = positions;
+                break;
+            case "storage":
+                res = storage;
+                break;
+            case "item":
+                res = item;
+                break;
+        }
+        for (var option of document.getElementById(select).options)
+        {
+            if (option.selected) {
+                selected.push(res[option.value]);
+            }
+        }
+        let dropSort = document.getElementById("sort");
+        dropSort.innerHTML = doHTMLwithDef(selected);
+    }
+
+    function getChosen1(from){
+        var selected = "";
+        for (var option of document.getElementById(from).options)
+        {
+            if (option.selected) {
+                selected = option.value;
+            }
+        }
+        return selected;
+    }
+</script>
+
 <div class="container p-4">
     <h3>Ввести запрос на вывод</h3>
     <form action="show_query.php" method="post">
@@ -92,9 +164,24 @@
                 <option value="storage_place">Склад</option>
             </select>
             <label for="select">Что вывести?</label>
-            <select class="form-select" multiple="multiple" id="select" name="select[]" required>
+            <select class="form-select" multiple="multiple" id="select" name="select[]" required onclick="getChosen('select','from')">
                 <option value="" selected disabled>Выберите поля для вывода</option>
             </select>
+            <label for="sort">Сортировать по</label>
+            <div class="row">
+                <div class="col-8">
+                    <select class="form-select" id="sort" name="sort">
+                        <option value="" selected>умолчанию</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select class="form-select" id="asc" name="asc">
+                        <option value="asc" selected>по возрастанию</option>
+                        <option value="desc">по убываниию</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
         <br>
 
@@ -108,10 +195,15 @@
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <br>
                     <div class="form-group">
+                        <label for="">Выберите вариант соединения</label>
+                        <select class="form-select" id="join_type" name="join_type">
+                            <option value="inner" selected>Внутреннее соединение</option>
+                            <option value="left">Левое соединение</option>
+                            <option value="right">Правое соединение</option>
+                        </select>
                         <label for="">Из какой таблицы вывести данные?</label>
                         <select class="form-select" id="join_from" name="join_from" onchange="javascript:dynamicdropdown(this.options[this.selectedIndex].value, 'join_select');">
                             <option value="" disabled selected >Выберите таблицу для вывода</option>
-
                             <script>
                                 function make_join(choise) {
                                     let genDropdown1 = document.getElementById('join_from');
@@ -170,7 +262,6 @@
                 </div>
             </div>
         </div>
-
         <br>
         <button type="submit" class="btn btn-dark float-end">Отправить</button>
     </form>

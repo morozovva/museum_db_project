@@ -20,6 +20,9 @@ $from = $_POST["from"];
 $input_select_arr = $_POST["select"];
 $join_from = $_POST["join_from"] ?? null;
 $join_select_arr = $_POST["join_select"] ?? null;
+$join_type = $_POST["join_type"] ?? null;
+$sort_type = $_POST["sort"] ?? null;
+$asc = $_POST["asc"] ?? null;
 
 //var_dump($join_select_arr);
 
@@ -161,12 +164,18 @@ $sql = "";
 //var_dump($join_from, $from,$id);
   if ($join_select_arr == NULL) {
       $sql = "SELECT $final_select FROM $from";
+      if ($sort_type != ""){
+          $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
+      }
       }
   else {
-      $sql = "SELECT $select1_finale FROM $from
-                 INNER JOIN $join_from on $from.$id=$join_from.$id";
+      $sql = "SELECT $select1_finale FROM $from ";
+      $sql .= "$join_type JOIN $join_from on $from.$id=$join_from.$id";
+      if ($sort_type != ""){
+          $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
+      }
   }
-//  var_dump($sql);
+  var_dump($sql);
     $result = $conn->query($sql);
     $rowNumber = 1;
     if ($result->num_rows > 0) {

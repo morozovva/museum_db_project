@@ -1,11 +1,11 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$w_record_number = $_POST["w_record_number"];
-$w_book_number = $_POST["w_book_number"];
+$w_record_number = $_POST["w_record_number"] ?? null;
+$w_book_number = $_POST["w_book_number"] ?? null;
 
-$s_record_number = $_POST["s_record_number"];
-$s_book_number = $_POST["s_book_number"];
+$s_record_number = $_POST["s_record_number"] ?? null;
+$s_book_number = $_POST["s_book_number"] ?? null;
 
 $host = "localhost";
 $dbname = "museum_database";
@@ -40,13 +40,13 @@ if ($w_book_number != '') {
 }
 
 $sql = substr($sql, 0, -4);
-var_dump($sql);
+//var_dump($sql);
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
+    header("Location: ../../book.php");
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header("Location: ../../book.php");
 exit;
