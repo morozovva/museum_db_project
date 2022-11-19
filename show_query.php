@@ -26,6 +26,8 @@ $asc = $_POST["asc"] ?? null;
 $group_type = $_POST["group"] ?? null;
 $limit = $_POST["limit"] ?? null;
 $offset = $_POST["offset"] ?? null;
+$like = $_POST["like"] ?? null;
+$find_what = $_POST["find_what"] ?? null;
 
 //var_dump($join_select_arr);
 
@@ -167,9 +169,6 @@ $sql = "";
 //var_dump($join_from, $from,$id);
   if ($join_select_arr == NULL) {
       $sql = "SELECT $final_select FROM $from";
-//      if ($group_type != ""){
-//          $sql .= " GROUP BY $final_select_arr[$group_type] ";
-//      }
       if ($sort_type != ""){
           $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
       }
@@ -178,14 +177,14 @@ $sql = "";
           if ($offset != ""){
               $sql .= " OFFSET $offset";
           }
+      }
+      if ($find_what != ""){
+          $sql .= " WHERE $final_select_arr[$like] LIKE '%$find_what%'";
       }
       }
   else {
       $sql = "SELECT $select1_finale FROM $from ";
       $sql .= "$join_type JOIN $join_from on $from.$id=$join_from.$id";
-//      if ($group_type != ""){
-//          $sql .= " GROUP BY $from.$final_select_arr[$group_type] ";
-//      }
       if ($sort_type != ""){
           $sql .= " ORDER BY $final_select_arr[$sort_type] $asc";
       }
@@ -195,7 +194,11 @@ $sql = "";
               $sql .= " OFFSET $offset";
           }
       }
+      if ($find_what != ""){
+          $sql .= " WHERE $final_select_arr[$like] LIKE '%$find_what%'";
+      }
   }
+
   var_dump($sql);
     $result = $conn->query($sql);
     $rowNumber = 1;

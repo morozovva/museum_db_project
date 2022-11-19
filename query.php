@@ -133,7 +133,9 @@
         }
         let dropSort = document.getElementById("sort");
         dropSort.innerHTML = doHTMLwithDef(selected);
-        document.getElementById("group").innerHTML = doHTMLwithDef(selected);
+        let dropFind = document.getElementById("like");
+        // document.getElementById("group").innerHTML = doHTMLwithDef(selected);
+        dropFind.innerHTML = doHTMLwithDef(selected);
     }
 
     function getChosen1(from){
@@ -178,7 +180,7 @@
                 <div class="col-4">
                     <select class="form-select" id="asc" name="asc">
                         <option value="asc" selected>по возрастанию</option>
-                        <option value="desc">по убываниию</option>
+                        <option value="desc">по убыванию</option>
                     </select>
                 </div>
             </div>
@@ -196,6 +198,20 @@
                     <input type="number" min="1" step="1" class="form-control" id="offset" name="offset" placeholder="По умолчанию с 1">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="select">Где?</label>
+                    <select class="form-select" id="like" name="like">
+                        <option value="" selected disabled>В каком поле хотите найти</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="appearance">Что хотите найти?</label>
+                    <input type="text" class="form-control" id="find_what" name="find_what">
+                </div>
+            </div>
+
+
         </div>
         <br>
 
